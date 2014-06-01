@@ -22,3 +22,7 @@
 
 # Netbeans
 nbproject
+/libapi/build/
+/libapi/dist/
+/interactive-add-plugin/build/
+/interactive-add-plugin/dist/
