@@ -12,10 +12,11 @@ Kommandos für die Console:
 * git push origin master (Transferiert den Stand des lokalen Repos in das Remote Repo)
 * git status (Zeigt den aktuellen lokalen Git Status an)
 
-Ein Sinniger Ablauf nachdem man entwickelt hat ist:
+Ein sinniger Ablauf nachdem man entwickelt hat ist:
 * git status
 * git add . bzw git add <bestimmte Dateien>
 * git commit -a
+* git pull (sollte man machen da git verhindert dass man pushed wenn nicht sichergestellt ist dass keine Konflikte auftreten)
 * git push origin master
 
 
