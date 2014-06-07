@@ -37,6 +37,8 @@ bool add(Person* data) {
                 actual->next = newListPersion;
                 done = true;
                 returnVal = true;
+            } else {
+                actual = actual->next;
             }
         }
     }
@@ -48,7 +50,18 @@ bool add(Person* data) {
  * {@inheritDoc}
  */
 bool insertAfter(ListPerson* element, Person* data) {
+    // TODO: testme
 
+    ListPerson nextElem = new ListPerson();
+    nextElem->data = data;
+
+    if (element->next != NULL) {
+        ListPerson* afterElem = element->next;
+        element->next = nextElem;
+        nextElem->next = afterElem;
+    } else {
+        element->next = nextElem;
+    }
 
 }
 
@@ -56,7 +69,27 @@ bool insertAfter(ListPerson* element, Person* data) {
  * {@inheritDoc}
  */
 bool insertBefore(ListPerson* element, Person* data) {
-    // TODO: implement
+    // TODO: testme
+    ListPerson* actualElem = ListPerson;
+    ListPerson* newElem = new ListPerson;
+    newElem->data = data;
+
+    bool returnVal = false;
+
+    // get the element before
+    bool done = false;
+    while (!done) {
+        if (actualElem->next == element) {
+
+            actualElem->next = newElem;
+            newElem->next = element;
+            done = true;
+            returnVal = true;
+        } else {
+            actualElem = actualElem->next;
+        }
+    }
+    return returnVal;
 }
 
 /**
@@ -83,6 +116,9 @@ void remove(ListPerson* element) {
             before->next = after;
             // free memory of the removed element
             delete element;
+            done = true;
+        } else {
+            actual = actual->next;
         }
     }
 
