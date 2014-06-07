@@ -17,6 +17,7 @@ ListPerson* getList() {
  */
 bool add(Person* data) {
     // TODO: testme
+    bool returnVal = false;
 
     ListPerson *actual = personList; // get first element
     if (actual == NULL) {
@@ -35,10 +36,12 @@ bool add(Person* data) {
                 newListPersion->data = data;
                 actual->next = newListPersion;
                 done = true;
+                returnVal = true;
             }
         }
     }
 
+    return returnVal;
 }
 
 /**
@@ -60,7 +63,7 @@ bool insertBefore(ListPerson* element, Person* data) {
  * {@inheritDoc}
  */
 void remove(ListPerson* element) {
-    
+
     // TODO: testme
     ListPerson *actual = personList; // get first element
 
@@ -73,7 +76,7 @@ void remove(ListPerson* element) {
             ListPerson *before = actual;
             // lets see if there is an following object
             ListPerson *after = NULL;
-            if(actual->next->next != NULL) {
+            if (actual->next->next != NULL) {
                 after = actual->next->next;
             }
             // so now do the removing
@@ -82,5 +85,5 @@ void remove(ListPerson* element) {
             delete element;
         }
     }
-    
+
 }
