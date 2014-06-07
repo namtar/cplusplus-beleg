@@ -26,3 +26,6 @@ nbproject
 /libapi/dist/
 /interactive-add-plugin/build/
 /interactive-add-plugin/dist/
+/main-program/build/
+/main-program/dist/
+.dep.inc
