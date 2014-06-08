@@ -19,6 +19,7 @@ Ein sinniger Ablauf nachdem man entwickelt hat ist:
 * git pull (sollte man machen da git verhindert dass man pushed wenn nicht sichergestellt ist dass keine Konflikte auftreten)
 * git push origin master
 
+Man sollte einen pull auch nur dann ausführen, wenn man alle Änderungen in das lokale Repo eingecheckt hat.
 
 Wichtig, wenn IDE´s verwendet werden. Man muss immer einen commit aller files in das lokale Repository gemacht haben bevor man einen git pull ausführt. Tut man das nicht kommt es zu Konflikten mit denen z.B. Eclipse nicht richtig klar kommt.
 
