@@ -52,7 +52,7 @@ bool add(Person* data) {
 bool insertAfter(ListPerson* element, Person* data) {
     // TODO: testme
 
-    ListPerson nextElem = new ListPerson();
+    ListPerson* nextElem = new ListPerson();
     nextElem->data = data;
 
     if (element->next != NULL) {
@@ -70,8 +70,8 @@ bool insertAfter(ListPerson* element, Person* data) {
  */
 bool insertBefore(ListPerson* element, Person* data) {
     // TODO: testme
-    ListPerson* actualElem = ListPerson;
-    ListPerson* newElem = new ListPerson;
+    ListPerson* actualElem = personList;
+    ListPerson* newElem = new ListPerson();
     newElem->data = data;
 
     bool returnVal = false;
