@@ -44,3 +44,6 @@ Erzeugen von shared libraries:
 
 Linken zur Kompilezeit:
 * g++ -o listmanager listmanager.cc -L <pathToLib> -l api
+
+Kann auch in Netbeans direkt eingestellt werden als zusätzliche Kompileroptionen:
+* -L ~/NetBeansProjects/cplusplus-beleg/runFolder -l libapi
