@@ -29,3 +29,9 @@ nbproject
 /main-program/build/
 /main-program/dist/
 .dep.inc
+/delete-listelements-plugin/build/
+/delete-listelements-plugin/dist/
+/output-list-plugin/dist/
+/output-list-plugin/build/
+/search-list-plugin/dist/
+/search-list-plugin/build/

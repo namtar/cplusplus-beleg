@@ -9,8 +9,12 @@
 #include <iostream>
 #include <dirent.h>
 #include "plugin.h"
+#include <dlfcn.h>
 
 using namespace std;
+using namespace HTW::AI::Beleg;
+
+typedef ListPerson* (*f_point)();
 
 /**
  * Prints the common menu which contains the basic functionality which is provided by the list api
@@ -37,9 +41,29 @@ void loadModules();
  * @See: http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html
  * @See: http://stackoverflow.com/questions/496664/c-dynamic-shared-library-on-linux
  * @See: http://www.faqs.org/docs/Linux-mini/C++-dlopen.html
+ * @See: http://bartgrantham.com/articles/dynamic-libraries-in-c-and-c/
  */
 int main(int argc, char** argv) {
 
+    char* error;
+    
+    // initial load liblibapi.so
+    void* handle = dlopen("./liblibapi.so", RTLD_LAZY);
+    // check for error opening the lib
+    error = dlerror();
+    if(error) {
+        cout << error << endl;
+        return 1;
+    }
+
+//    f_point getList = (f_point) dlsym(handle, "_Z7getListv");    
+    f_point getList = (f_point) dlsym(handle, "getList");    
+    error = dlerror();
+    if(error) {
+        cout << error << endl;
+        return 1;
+    }
+    
     bool done = false;
     
     loadModules();
@@ -51,8 +75,14 @@ int main(int argc, char** argv) {
             case 0:
                 done = true;
                 break;
+            case 1:
+                ListPerson* list = getList();
+                cout << list << endl;
+                break;
         }
     }
+    
+    dlclose(handle);
 
     return 0;
 }
