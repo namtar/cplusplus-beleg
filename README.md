@@ -35,8 +35,8 @@ Das Repository besteht aus mehreren separaten C++ Projekten.
 * delete-listelements-plugin (Eine Shared Library, welche als Plugin die Funktionalität bereitstellt alle Listenelemente aus der Liste zu löschen)
  
 
-Kompilerbefehle:
-================
+###### Kompilerbefehle:
+
 
 Erzeugen von shared libraries:
 * g++ -shared -m64 -fPIC -o plugin1.so plugin1.cc
