@@ -47,4 +47,4 @@ Linken zur Kompilezeit:
 
 Kann auch in Netbeans direkt eingestellt werden als zusätzliche Kompileroptionen:
 * -L ~/NetBeansProjects/cplusplus-beleg/runFolder -l libapi
-* g++ -Wall -o test main.cpp -L . -l libapi -v -Wl,--no-as-needed -ldl -std=C++11
+* g++ -Wall -o test main.cpp -L . -l libapi -v -Wl,--no-as-needed -ldl -std=c++11
