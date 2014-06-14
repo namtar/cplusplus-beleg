@@ -31,6 +31,7 @@ namespace HTW {
                         infoArr[0].name = "interactiveAdd";
                         called = true;
                     }
+                    cout << "Fecking Plugin called" << endl;
                     return pInfo;
                 }
 

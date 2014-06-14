@@ -38,6 +38,20 @@ int getMenuInput();
  */
 void loadModules();
 
+void testSo() {
+    char* error;
+    
+    void* handle = dlopen("plugins/libinteractive-add-plugin.so", RTLD_LAZY);
+    error = dlerror();
+    if(error) {
+        cout << "Error when loading the lib" << endl;
+        exit(1);
+    }
+    
+    plugin_info_f_t fuPointer = (plugin_info_f_t) dlsym(handle, PLUGIN_INFO_F_NAME);
+    plugin_info_struct infoStruct = fuPointer();
+}
+
 /*
  * @See: http://stackoverflow.com/questions/1142103/how-do-i-load-a-shared-object-in-c
  * @See: http://www.willemer.de/informatik/cpp/stl.htm
@@ -50,6 +64,8 @@ void loadModules();
  */
 int main(int argc, char** argv) {
 
+    
+    testSo();
     //    char* error;
     //
     //    // initial load liblibapi.so

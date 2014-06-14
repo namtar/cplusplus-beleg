@@ -1,7 +1,17 @@
 #include "plugin.h"
 
-using namespace HTW::AI::Beleg::Plugin;
+namespace HTW {
+    namespace AI {
+        namespace Beleg {
+            namespace Plugin {
 
-plugin_info_struct plugin_info() {
-    // TODO: return the whole plugin function foo.
+                plugin_info_struct plugin_info() {
+                    // TODO: return the whole plugin function foo.
+                }
+
+                
+                // beim löschen mit delete und delete[] arbeiten
+            }
+        }
+    }
 }
