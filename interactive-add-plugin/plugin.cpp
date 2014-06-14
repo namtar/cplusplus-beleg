@@ -32,6 +32,7 @@ plugin_info_struct plugin_info() {
 
 void interactiveAdd() {
 
+    HTW::AI::Beleg::getList();
     // TODO: implement
     std::cout << "Test";
 }

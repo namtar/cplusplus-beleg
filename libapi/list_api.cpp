@@ -1,9 +1,15 @@
-#include "list_api.h"
+#include "plugin.h"
 #include <cstdlib>
 
 using namespace HTW::AI::Beleg;
+using namespace HTW::AI::Beleg::Plugin;
 
 ListPerson* personList = NULL; // init with null. This pointer shall point to the root item of the list.
+
+plugin_info_struct plugin_info() {
+    // TODO: implement and return the fecking function pointers.
+}
+
 
 /**
  * {@inheritDoc}

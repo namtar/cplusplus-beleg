@@ -35,3 +35,9 @@ nbproject
 /output-list-plugin/build/
 /search-list-plugin/dist/
 /search-list-plugin/build/
+
+# Eclipse
+.settings
+.classpath
+.project
+.DS_Store
