@@ -15,6 +15,7 @@
 
 using namespace std;
 using namespace HTW::AI::Beleg;
+using namespace HTW::AI::Beleg::Plugin;
 
 typedef ListPerson* (*f_point)();
 
@@ -49,46 +50,49 @@ void loadModules();
  */
 int main(int argc, char** argv) {
 
-    char* error;
+    //    char* error;
+    //
+    //    // initial load liblibapi.so
+    //    void* handle = dlopen("./liblibapi.so", RTLD_LAZY);
+    //    // check for error opening the lib
+    //    error = dlerror();
+    //    if (error) {
+    //        cout << error << endl;
+    //        return 1;
+    //    }
+    //
+    //    //    f_point getList = (f_point) dlsym(handle, "_Z7getListv");    
+    //    f_point getList = (f_point) dlsym(handle, "_Z7getListv");
+    //    error = dlerror();
+    //    if (error) {
+    //        cout << error << endl;
+    //        return 1;
+    //    }
+    //
+    //    bool done = false;
+    //
+    //    loadModules();
+    //
+    //    while (!done) {
+    //        printCommonMenu();
+    //        int input = getMenuInput();
+    //        switch (input) {
+    //            case 0:
+    //                done = true;
+    //                break;
+    //            case 1:
+    //                ListPerson* list = getList();
+    //                cout << list << endl;
+    //                break;
+    //        }
+    //    }
+    //
+    //    dlclose(handle);
+    //
+    //    cout << "handles size" << handles.size() << endl;
 
-    // initial load liblibapi.so
-    void* handle = dlopen("./liblibapi.so", RTLD_LAZY);
-    // check for error opening the lib
-    error = dlerror();
-    if (error) {
-        cout << error << endl;
-        return 1;
-    }
-
-    //    f_point getList = (f_point) dlsym(handle, "_Z7getListv");    
-    f_point getList = (f_point) dlsym(handle, "_Z7getListv");
-    error = dlerror();
-    if (error) {
-        cout << error << endl;
-        return 1;
-    }
-
-    bool done = false;
-
-    loadModules();
-
-    while (!done) {
-        printCommonMenu();
-        int input = getMenuInput();
-        switch (input) {
-            case 0:
-                done = true;
-                break;
-            case 1:
-                ListPerson* list = getList();
-                cout << list << endl;
-                break;
-        }
-    }
-
-    dlclose(handle);
-
-    cout << "handles size" << handles.size() << endl;
+        plugin_info_struct result;
+        result = plugin_info();
 
     return 0;
 }
