@@ -1,5 +1,6 @@
 #include "plugin.h"
 #include <iostream>
+#include "interactiveAdd.h"
 
 using namespace std;
 
@@ -10,12 +11,7 @@ namespace HTW {
 
                 plugin_info_struct pInfo;
                 plugin_f_info infoArr[1];
-                bool called = false;
-
-                /**
-                 * Adds a new Person interactiveally to the list.
-                 */
-                void interactiveAdd();
+                bool called = false;                               
 
                 /**
                  * {@inheritDoc}
@@ -35,19 +31,22 @@ namespace HTW {
                     return pInfo;
                 }
 
-                void interactiveAdd() {
+                /**
+                 * {@inheritDoc}
+                 */
+                void interactiveAdd(ListPerson* list) {
                     // TODO: implement
 
                     cout << "Gib eine neue Person ein" << endl;
                     // TODO: Eingabe aller Daten und Fehlerüberprüfung
 
                     Person* newPerson = new Person();
-                    
+
                     bool finished = false;
                     do {
                         // eingaben hier
                         // wenn die eingabe korrekt ist, dann finished = true
-                    } while(!finished);
+                    } while (!finished);
 
                     if (HTW::AI::Beleg::add(newPerson)) {
                         cout << "Person erfolgreich gespeichert." << endl;

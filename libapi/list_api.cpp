@@ -1,17 +1,48 @@
-#include "plugin.h"
+#include "list_api_extended.h"
 #include <cstdlib>
 #include <iostream>
+#include <iomanip>
+#include <string>
+
+/**
+ * Stupid ugly style to add extern "C" to the function implementations which prototypes are defined in the header.
+ * This is done here because the header files may not be modified.
+ */
+
+using namespace std;
 
 namespace HTW {
     namespace AI {
         namespace Beleg {
             namespace Plugin {
 
+                /* *************** Prototypes *************** */
+
+                /**
+                 * Maps a given Sex enum to string.
+                 * 
+                 * @param sex the sex enum to be mapped
+                 * @return the mapped string
+                 */
+                string mapSexToString(Sex sex);
+
+                /**
+                 * Maps a given department enum to string
+                 * 
+                 * @param department the department enum to be mapped
+                 * @return the mapped string
+                 */
+                string mapDepartmentToString(Department department);
+
+                /* *************** Globals ***************** */
+
                 ListPerson* personList = NULL; // init with null. This pointer shall point to the root item of the list.
 
                 plugin_info_struct pInfo;
                 plugin_f_info infoArr[5];
                 bool called = false;
+
+                /* *************** Functions *************** */
 
                 /**
                  * {@inheritDoc}
@@ -35,21 +66,21 @@ namespace HTW {
 
                         called = true;
                     }
-                    std::cout << "Ping" << std::endl;
+                    cout << "Ping" << endl;
                     return pInfo;
                 }
 
                 /**
                  * {@inheritDoc}
                  */
-                ListPerson* getList() {
+                extern "C" ListPerson* getList() {
                     return personList;
                 }
 
                 /**
                  * {@inheritDoc}
                  */
-                bool add(Person* data) {
+                extern "C" bool add(Person* data) {
                     // TODO: testme
                     bool returnVal = false;
 
@@ -83,7 +114,7 @@ namespace HTW {
                 /**
                  * {@inheritDoc}
                  */
-                bool insertAfter(ListPerson* element, Person* data) {
+                extern "C" bool insertAfter(ListPerson* element, Person* data) {
                     // TODO: testme
 
                     ListPerson* nextElem = new ListPerson();
@@ -102,7 +133,7 @@ namespace HTW {
                 /**
                  * {@inheritDoc}
                  */
-                bool insertBefore(ListPerson* element, Person* data) {
+                extern "C" bool insertBefore(ListPerson* element, Person* data) {
                     // TODO: testme
                     ListPerson* actualElem = personList;
                     ListPerson* newElem = new ListPerson();
@@ -129,7 +160,7 @@ namespace HTW {
                 /**
                  * {@inheritDoc}
                  */
-                void remove(ListPerson* element) {
+                extern "C" void remove(ListPerson* element) {
 
                     // TODO: testme
                     ListPerson *actual = personList; // get first element
@@ -158,6 +189,56 @@ namespace HTW {
 
                 }
 
+                void outputPerson(Person* person) {
+
+                    string birth("");
+                    birth.append(to_string(person->birth.day));
+                    birth.append("-");
+                    birth.append(to_string(person->birth.month));
+                    birth.append("-");
+                    birth.append(to_string(person->birth.year));
+
+                    string sex = mapSexToString(person->sex);
+                    string department = mapDepartmentToString(person->dept);
+
+                    cout << setw(10) << person->name << setw(5) << "|" << setw(10) << person->firstname << setw(5) << "|" << setw(15) << department;
+                    cout << setw(5) << "|" << setw(10) << birth << setw(5) << "|" << setw(10) << sex << endl;
+                }
+
+                void outputPersonTableHeader() {
+                    cout << setw(10) << "Name" << setw(5) << "|" << setw(10) << "Firstname" << setw(5) << "|" << setw(15) << "Department";
+                    cout << setw(5) << "|" << setw(10) << "Birth" << setw(5) << "|" << setw(10) << "Sex" << endl;
+                }
+
+                /**
+                 * {@inheritDoc}
+                 */
+                string mapDepartmentToString(Department department) {
+
+                    switch (department) {
+                        case Controlling:
+                            return "Controlling";
+                        case Management:
+                            return "Management";
+                        case Production1:
+                            return "Production1";
+                        case Production2:
+                            return "Production2";
+                    }
+
+                }
+
+                /**
+                 * {@inheritDoc}
+                 */
+                string mapSexToString(Sex sex) {
+                    switch (sex) {
+                        case male:
+                            return "Male";
+                        case female:
+                            return "Female";
+                    }
+                }
             }
         }
     }

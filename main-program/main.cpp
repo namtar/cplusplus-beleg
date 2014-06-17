@@ -50,6 +50,10 @@ void testSo() {
     
     plugin_info_f_t fuPointer = (plugin_info_f_t) dlsym(handle, PLUGIN_INFO_F_NAME);
     plugin_info_struct infoStruct = fuPointer();
+     
+    cout << "P: " << infoStruct.info[0].name << endl;
+//    plugin_f_t functionP = (plugin_f_t) dlsym(handle, infoStruct.info[0].name);    
+    ListPerson* list;    
 }
 
 /*
