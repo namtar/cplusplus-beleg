@@ -40,7 +40,7 @@ namespace HTW {
                     cout << "Gib eine neue Person ein" << endl;
                     // TODO: Eingabe aller Daten und Fehlerüberprüfung
 
-                    Person* newPerson = new Person();
+                    Person* newPerson = new Person();                    
 
                     bool finished = false;
                     do {
