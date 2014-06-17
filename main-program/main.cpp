@@ -13,6 +13,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include "list_api_extended.h"
 
 using namespace std;
 using namespace HTW::AI::Beleg;
@@ -78,7 +79,7 @@ void testSo() {
  * @See: http://bartgrantham.com/articles/dynamic-libraries-in-c-and-c/
  */
 int main(int argc, char** argv) {
-    
+
     //    char* error;
     //
     //    // initial load liblibapi.so
@@ -121,7 +122,9 @@ int main(int argc, char** argv) {
     //    cout << "handles size" << handles.size() << endl;
 
     plugin_info_struct result;
-    result = plugin_info();
+    //    result = plugin_info();
+    ListPerson* listHead = HTW::AI::Beleg::getList();
+
     loadModules();
     generateMenue();
     printMenu();
@@ -133,18 +136,16 @@ void printMenu() {
 
     cout << "Menü" << endl;
     cout << endl;
-    
-    
-//    cout << "1: add Element" << endl;
-//    cout << "2: remove Element" << endl;
-//    cout << "3: insert Element before" << endl;
-//    cout << "4: insert Element after" << endl;
-    
+
     map<int, MenueEntry*>::iterator iter;
     for (iter = menueItems.begin(); iter != menueItems.end(); ++iter) {
         cout << iter->first << ":" << iter->second->info->description << endl;
     }
-    
+
+    //    for (auto it=menueItems.begin(); it!=menueItems.end(); ++it) {
+    //        cout << it->first << endl;
+    //    }
+
     cout << "0: End program" << endl;
 }
 
@@ -190,8 +191,7 @@ void loadModules() {
 
 void generateMenue() {
 
-    cout << "Enter generate Menu" << endl;
-    
+    char* error;
     menueItems.clear(); // perhaps a bad idea. Free memory????
     int menueCount(1);
 
@@ -199,12 +199,19 @@ void generateMenue() {
         cout << "Loop" << endl;
         // so for each handle get plugin_information and create menue items
         plugin_info_f_t pluginInfoPointer = (plugin_info_f_t) dlsym(*it, PLUGIN_INFO_F_NAME);
+        error = dlerror();
+        if (error) {
+            cout << "An error occured: " << error << endl;
+            exit(1);
+        }
+
         plugin_info_struct infoStruct = pluginInfoPointer();
+        cout << "Struct count: " << infoStruct.num << endl;
         for (int i = 0; i < infoStruct.num; i++) {
             MenueEntry* entry = new MenueEntry();
             entry->handle = *it;
             entry->info = &infoStruct.info[i];
-//            menueItems[menueCount] = entry;
+            //            menueItems[menueCount] = entry;
             menueItems.insert(pair<int, MenueEntry*>(menueCount, entry));
             menueCount++;
         }

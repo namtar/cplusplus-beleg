@@ -18,96 +18,109 @@
  *
  *********************************************************************************/
 
-namespace HTW {
-    namespace AI {
-        namespace Beleg {
+#ifndef LIST_API_H
+#define LIST_API_H
 
-            /**
-             * Abteilungen
-             */
-            enum Department {
-                Controlling, Management, Production1, Production2
-            };
+#ifdef  __cplusplus
+extern "C" {
+#endif
 
-            /**
-             * Geschlecht
-             */
-            enum Sex {
-                female, male
-            };
+    namespace HTW {
+        namespace AI {
+            namespace Beleg {
 
-            /**
-             * Struktur eines Datums
-             */
-            struct Date {
-                short year;
-                short month;
-                short day;
-            };
+                /**
+                 * Abteilungen
+                 */
+                enum Department {
+                    Controlling, Management, Production1, Production2
+                };
 
-            /**
-             * Personen-Struktur mit Daten einer Person
-             */
-            struct Person {
-                char *name;
-                char *firstname;
-                Department dept;
-                Date birth;
-                Sex sex;
-            };
+                /**
+                 * Geschlecht
+                 */
+                enum Sex {
+                    female, male
+                };
 
-            /**
-             * Struktur eines Listenelements der Personen-Liste
-             */
-            struct ListPerson {
-                struct ListPerson* next; // Zeiger auf das nächste Element
-                struct Person* data; // Zeiger auf die Personen-Daten
-            };
+                /**
+                 * Struktur eines Datums
+                 */
+                struct Date {
+                    short year;
+                    short month;
+                    short day;
+                };
 
-            /***************************************************************
-             * API-Funktionen
-             ***************************************************************/
-            /**
-             * Funktion: getList
-             * Zweck:    Rückgabe des ersten Listen-Elements 
-             * return:   erstes Listen-Element (Beginn der Liste)
-             */
-            ListPerson* getList();
+                /**
+                 * Personen-Struktur mit Daten einer Person
+                 */
+                struct Person {
+                    char *name;
+                    char *firstname;
+                    Department dept;
+                    Date birth;
+                    Sex sex;
+                };
 
-            /**
-             * Funktion: add
-             * Zweck:    Hinzufügen des übergebenen Listen-Elements zum
-             *           Ende der Liste
-             * return:   Erfolg (true) oder Fehler (false)
-             */
-            bool add(Person* data);
+                /**
+                 * Struktur eines Listenelements der Personen-Liste
+                 */
+                struct ListPerson {
+                    struct ListPerson* next; // Zeiger auf das nächste Element
+                    struct Person* data; // Zeiger auf die Personen-Daten
+                };
 
-            /**
-             * Funktion: remove
-             * Zweck:    Löscht das über den Zeiger 'element' referenzierte Element aus
-             *           der Liste
-             * return:   nichts
-             */
-            void remove(ListPerson* element);
+                /***************************************************************
+                 * API-Funktionen
+                 ***************************************************************/
+                /**
+                 * Funktion: getList
+                 * Zweck:    Rückgabe des ersten Listen-Elements 
+                 * return:   erstes Listen-Element (Beginn der Liste)
+                 */
+                ListPerson* getList();
 
-            /**
-             * Funktion: insertBefore
-             * Zweck:    Fügt das mittels 'data' übergebene neue Element vor dem über den
-             *           Zeiger 'element' referenzierten Element ein
-             *           der Liste
-             * return:   Erfolg (true) oder Fehler (false)
-             */
-            bool insertBefore(ListPerson* element, Person* data);
+                /**
+                 * Funktion: add
+                 * Zweck:    Hinzufügen des übergebenen Listen-Elements zum
+                 *           Ende der Liste
+                 * return:   Erfolg (true) oder Fehler (false)
+                 */
+                bool add(Person* data);
 
-            /**
-             * Funktion: insertAfter
-             * Zweck:    Fügt das mittels 'data' übergebene neue Element hinter dem über den
-             *           Zeiger 'element' referenzierten Element ein
-             *           der Liste
-             * return:   Erfolg (true) oder Fehler (false)
-             */
-            bool insertAfter(ListPerson* element, Person* data);
+                /**
+                 * Funktion: remove
+                 * Zweck:    Löscht das über den Zeiger 'element' referenzierte Element aus
+                 *           der Liste
+                 * return:   nichts
+                 */
+                void remove(ListPerson* element);
 
+                /**
+                 * Funktion: insertBefore
+                 * Zweck:    Fügt das mittels 'data' übergebene neue Element vor dem über den
+                 *           Zeiger 'element' referenzierten Element ein
+                 *           der Liste
+                 * return:   Erfolg (true) oder Fehler (false)
+                 */
+                bool insertBefore(ListPerson* element, Person* data);
+
+                /**
+                 * Funktion: insertAfter
+                 * Zweck:    Fügt das mittels 'data' übergebene neue Element hinter dem über den
+                 *           Zeiger 'element' referenzierten Element ein
+                 *           der Liste
+                 * return:   Erfolg (true) oder Fehler (false)
+                 */
+                bool insertAfter(ListPerson* element, Person* data);
+
+            }
         }
     }
+
+#ifdef __cplusplus
 }
+#endif
+
+#endif

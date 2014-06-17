@@ -38,37 +38,37 @@ namespace HTW {
 
                 ListPerson* personList = NULL; // init with null. This pointer shall point to the root item of the list.
 
-                plugin_info_struct pInfo;
-                plugin_f_info infoArr[5];
-                bool called = false;
+//                plugin_info_struct pInfo;
+//                plugin_f_info infoArr[5];
+//                bool called = false;
 
                 /* *************** Functions *************** */
 
                 /**
                  * {@inheritDoc}
                  */
-                plugin_info_struct plugin_info() {
-                    if (!called) {
-                        pInfo.num = 5;
-
-                        pInfo.info = infoArr;
-
-                        infoArr[0].description = "Get the Person list";
-                        infoArr[0].name = "getList";
-                        infoArr[1].description = "Adds a Person to the list";
-                        infoArr[1].name = "add";
-                        infoArr[2].description = "Inserts a Person after the given ListPerson element";
-                        infoArr[2].name = "insertAfter";
-                        infoArr[3].description = "Inserts a Person before the given ListPerson element";
-                        infoArr[3].name = "insertBefore";
-                        infoArr[4].description = "Removes a Person";
-                        infoArr[4].name = "remove";
-
-                        called = true;
-                    }
-                    cout << "Ping" << endl;
-                    return pInfo;
-                }
+//                plugin_info_struct plugin_info() {
+//                    if (!called) {
+//                        pInfo.num = 5;
+//
+//                        pInfo.info = infoArr;
+//
+//                        infoArr[0].description = "Get the Person list";
+//                        infoArr[0].name = "getList";
+//                        infoArr[1].description = "Adds a Person to the list";
+//                        infoArr[1].name = "add";
+//                        infoArr[2].description = "Inserts a Person after the given ListPerson element";
+//                        infoArr[2].name = "insertAfter";
+//                        infoArr[3].description = "Inserts a Person before the given ListPerson element";
+//                        infoArr[3].name = "insertBefore";
+//                        infoArr[4].description = "Removes a Person";
+//                        infoArr[4].name = "remove";
+//
+//                        called = true;
+//                    }
+//                    cout << "Ping" << endl;
+//                    return pInfo;
+//                }
 
                 /**
                  * {@inheritDoc}
