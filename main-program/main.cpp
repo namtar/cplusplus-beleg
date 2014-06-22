@@ -80,60 +80,49 @@ void testSo() {
  */
 int main(int argc, char** argv) {
 
-    //    char* error;
-    //
-    //    // initial load liblibapi.so
-    //    void* handle = dlopen("./liblibapi.so", RTLD_LAZY);
-    //    // check for error opening the lib
-    //    error = dlerror();
-    //    if (error) {
-    //        cout << error << endl;
-    //        return 1;
-    //    }
-    //
-    //    //    f_point getList = (f_point) dlsym(handle, "_Z7getListv");    
-    //    f_point getList = (f_point) dlsym(handle, "_Z7getListv");
-    //    error = dlerror();
-    //    if (error) {
-    //        cout << error << endl;
-    //        return 1;
-    //    }
-    //
-    //    bool done = false;
-    //
-    //    loadModules();
-    //
-    //    while (!done) {
-    //        printCommonMenu();
-    //        int input = getMenuInput();
-    //        switch (input) {
-    //            case 0:
-    //                done = true;
-    //                break;
-    //            case 1:
-    //                ListPerson* list = getList();
-    //                cout << list << endl;
-    //                break;
-    //        }
-    //    }
-    //
-    //    dlclose(handle);
-    //
-    //    cout << "handles size" << handles.size() << endl;
-
-    plugin_info_struct result;
-    //    result = plugin_info();
     ListPerson* listHead = HTW::AI::Beleg::getList();
 
     loadModules();
     generateMenue();
-    printMenu();
 
-    return 0;
+    bool done = false;
+    while (!done) {
+
+        printMenu();
+        int input = getMenuInput();
+        if (input == 0) {
+            done = true;
+        } else {
+            // parse menu hashmap for
+            map<int, MenueEntry*>::iterator it = menueItems.find(input);
+            if (it != menueItems.end()) {
+                // found and call chosen function
+                char* error;
+                plugin_f_t functionPointer = (plugin_f_t) dlsym(it->second->handle, it->second->info->name);
+                functionPointer(listHead);
+                error = dlerror();
+                if (error) {
+                    // End program if failure occurs.
+                    cout << "An error occured while calling the plugin function. " << error << endl;
+                    return EXIT_FAILURE;
+                }
+            } else {
+                // the given menue index does not exist. Exit Program
+                cout << "The given menu value has no corresponding handle. Exit program" << endl;
+                return EXIT_FAILURE;
+            }
+        }
+    }
+
+    cout << endl;
+    cout << "Bye bye" << endl;
+
+    return EXIT_SUCCESS;
 }
 
 void printMenu() {
 
+    cout << endl;
     cout << "Menü" << endl;
     cout << endl;
 
@@ -196,17 +185,15 @@ void generateMenue() {
     int menueCount(1);
 
     for (vector<void*>::iterator it = handles.begin(); it != handles.end(); ++it) {
-        cout << "Loop" << endl;
         // so for each handle get plugin_information and create menue items
         plugin_info_f_t pluginInfoPointer = (plugin_info_f_t) dlsym(*it, PLUGIN_INFO_F_NAME);
         error = dlerror();
         if (error) {
             cout << "An error occured: " << error << endl;
-            exit(1);
+            exit(EXIT_FAILURE);
         }
 
         plugin_info_struct infoStruct = pluginInfoPointer();
-        cout << "Struct count: " << infoStruct.num << endl;
         for (int i = 0; i < infoStruct.num; i++) {
             MenueEntry* entry = new MenueEntry();
             entry->handle = *it;

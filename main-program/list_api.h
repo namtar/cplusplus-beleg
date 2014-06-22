@@ -21,10 +21,6 @@
 #ifndef LIST_API_H
 #define LIST_API_H
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
-
     namespace HTW {
         namespace AI {
             namespace Beleg {
@@ -118,9 +114,5 @@ extern "C" {
             }
         }
     }
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

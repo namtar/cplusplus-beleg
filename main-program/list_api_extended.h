@@ -10,33 +10,24 @@
 
 #include "list_api.h"
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
+namespace HTW {
+    namespace AI {
+        namespace Beleg {
 
-    namespace HTW {
-        namespace AI {
-            namespace Beleg {
-                namespace Plugin {
+            /**
+             * Outputs a person
+             * 
+             * @param person the Person the be outputted.
+             */
+            void outputPerson(Person* person);
 
-                    /**
-                     * Outputs a person
-                     * 
-                     * @param person the Person the be outputted.
-                     */
-                    void outputPerson(Person* person);
-
-                    /**
-                     * Outputs the table header for a person output.
-                     */
-                    void outputPersonTableHeader();
-                }
-            }
+            /**
+             * Outputs the table header for a person output.
+             */
+            void outputPersonTableHeader();
         }
     }
-#ifdef __cplusplus
 }
-#endif
 
 
 #endif	/* LIST_API_EXTENDED_H */
