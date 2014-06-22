@@ -8,36 +8,43 @@
 #ifndef LIST_API_EXTENDED_H
 #define	LIST_API_EXTENDED_H
 
-#include "plugin.h"
+#include "list_api.h"
+#include <string>
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
+namespace HTW {
+    namespace AI {
+        namespace Beleg {
 
-    namespace HTW {
-        namespace AI {
-            namespace Beleg {
-                namespace Plugin {
+            /**
+             * Maps a given Sex enum to string.
+             * 
+             * @param sex the sex enum to be mapped
+             * @return the mapped string
+             */
+            std::string mapSexToString(Sex sex);
 
-                    /**
-                     * Outputs a person
-                     * 
-                     * @param person the Person the be outputted.
-                     */
-                    void outputPerson(Person* person);
+            /**
+             * Maps a given department enum to string
+             * 
+             * @param department the department enum to be mapped
+             * @return the mapped string
+             */
+            std::string mapDepartmentToString(Department department);
 
-                    /**
-                     * Outputs the table header for a person output.
-                     */
-                    void outputPersonTableHeader();
-                }
-            }
+            /**
+             * Outputs a person
+             * 
+             * @param person the Person the be outputted.
+             */
+            void outputPerson(Person* person);
+
+            /**
+             * Outputs the table header for a person output.
+             */
+            void outputPersonTableHeader();
         }
     }
-#ifdef __cplusplus
 }
-#endif
-
 
 #endif	/* LIST_API_EXTENDED_H */
 

@@ -17,57 +17,11 @@ namespace HTW {
 
             /* *************** Prototypes *************** */
 
-            /**
-             * Maps a given Sex enum to string.
-             * 
-             * @param sex the sex enum to be mapped
-             * @return the mapped string
-             */
-            string mapSexToString(Sex sex);
-
-            /**
-             * Maps a given department enum to string
-             * 
-             * @param department the department enum to be mapped
-             * @return the mapped string
-             */
-            string mapDepartmentToString(Department department);
-
             /* *************** Globals ***************** */
 
             ListPerson* personList = NULL; // init with null. This pointer shall point to the root item of the list.
 
-            //                plugin_info_struct pInfo;
-            //                plugin_f_info infoArr[5];
-            //                bool called = false;
-
             /* *************** Functions *************** */
-
-            /**
-             * {@inheritDoc}
-             */
-            //                plugin_info_struct plugin_info() {
-            //                    if (!called) {
-            //                        pInfo.num = 5;
-            //
-            //                        pInfo.info = infoArr;
-            //
-            //                        infoArr[0].description = "Get the Person list";
-            //                        infoArr[0].name = "getList";
-            //                        infoArr[1].description = "Adds a Person to the list";
-            //                        infoArr[1].name = "add";
-            //                        infoArr[2].description = "Inserts a Person after the given ListPerson element";
-            //                        infoArr[2].name = "insertAfter";
-            //                        infoArr[3].description = "Inserts a Person before the given ListPerson element";
-            //                        infoArr[3].name = "insertBefore";
-            //                        infoArr[4].description = "Removes a Person";
-            //                        infoArr[4].name = "remove";
-            //
-            //                        called = true;
-            //                    }
-            //                    cout << "Ping" << endl;
-            //                    return pInfo;
-            //                }
 
             /**
              * {@inheritDoc}
@@ -80,7 +34,7 @@ namespace HTW {
              * {@inheritDoc}
              */
             bool add(Person* data) {
-                // TODO: testme
+                outputPerson(data);
                 bool returnVal = false;
 
                 ListPerson *actual = personList; // get first element
@@ -88,6 +42,8 @@ namespace HTW {
                     // there is no lists. create one
                     actual = new ListPerson();
                     actual->data = data;
+                    personList = actual;
+                    returnVal = true;
                 } else {
                     // search end of list
                     bool done = false;
@@ -114,7 +70,6 @@ namespace HTW {
              * {@inheritDoc}
              */
             bool insertAfter(ListPerson* element, Person* data) {
-                // TODO: testme
 
                 ListPerson* nextElem = new ListPerson();
                 nextElem->data = data;
@@ -133,7 +88,6 @@ namespace HTW {
              * {@inheritDoc}
              */
             bool insertBefore(ListPerson* element, Person* data) {
-                // TODO: testme
                 ListPerson* actualElem = personList;
                 ListPerson* newElem = new ListPerson();
                 newElem->data = data;
@@ -161,7 +115,6 @@ namespace HTW {
              */
             void remove(ListPerson* element) {
 
-                // TODO: testme
                 ListPerson *actual = personList; // get first element
 
                 // get the right position of the element
@@ -179,6 +132,7 @@ namespace HTW {
                         // so now do the removing
                         before->next = after;
                         // free memory of the removed element
+                        // TODO: remove element with subtypes
                         delete element;
                         done = true;
                     } else {
@@ -190,6 +144,11 @@ namespace HTW {
 
             void outputPerson(Person* person) {
 
+                if (person == NULL) {
+                    cout << "Given person is null" << endl;
+                    return;
+                }
+
                 string birth("");
                 birth.append(to_string(person->birth.day));
                 birth.append("-");
@@ -198,6 +157,7 @@ namespace HTW {
                 birth.append(to_string(person->birth.year));
 
                 string sex = mapSexToString(person->sex);
+
                 string department = mapDepartmentToString(person->dept);
 
                 cout << setw(10) << person->name << setw(5) << "|" << setw(10) << person->firstname << setw(5) << "|" << setw(15) << department;
@@ -232,10 +192,12 @@ namespace HTW {
              */
             string mapSexToString(Sex sex) {
                 switch (sex) {
-                    case male:
-                        return "Male";
                     case female:
+                        cout << "Return female" << endl;
                         return "Female";
+                    case male:
+                        cout << "Return male" << endl;
+                        return "Male";
                 }
             }
         }

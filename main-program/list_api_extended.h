@@ -9,10 +9,27 @@
 #define	LIST_API_EXTENDED_H
 
 #include "list_api.h"
+#include <string>
 
 namespace HTW {
     namespace AI {
         namespace Beleg {
+
+            /**
+             * Maps a given Sex enum to string.
+             * 
+             * @param sex the sex enum to be mapped
+             * @return the mapped string
+             */
+            std::string mapSexToString(Sex sex);
+
+            /**
+             * Maps a given department enum to string
+             * 
+             * @param department the department enum to be mapped
+             * @return the mapped string
+             */
+            std::string mapDepartmentToString(Department department);
 
             /**
              * Outputs a person
@@ -28,7 +45,6 @@ namespace HTW {
         }
     }
 }
-
 
 #endif	/* LIST_API_EXTENDED_H */
 

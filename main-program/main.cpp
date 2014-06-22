@@ -80,7 +80,7 @@ void testSo() {
  */
 int main(int argc, char** argv) {
 
-    ListPerson* listHead = HTW::AI::Beleg::getList();
+    //    ListPerson* listHead = HTW::AI::Beleg::getList();
 
     loadModules();
     generateMenue();
@@ -99,7 +99,7 @@ int main(int argc, char** argv) {
                 // found and call chosen function
                 char* error;
                 plugin_f_t functionPointer = (plugin_f_t) dlsym(it->second->handle, it->second->info->name);
-                functionPointer(listHead);
+                functionPointer(HTW::AI::Beleg::getList());
                 error = dlerror();
                 if (error) {
                     // End program if failure occurs.

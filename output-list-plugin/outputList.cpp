@@ -1,4 +1,5 @@
 #include "list_api_extended.h"
+#include "plugin.h"
 #include "outputList.h"
 #include <stdlib.h>
 

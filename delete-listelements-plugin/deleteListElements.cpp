@@ -59,6 +59,8 @@ namespace HTW {
                             // delete current item
                         }
                     }
+                    // at last set list NULL
+                    list = NULL;
                 }
 
                 bool deleteCurrentItem(ListPerson* currentItem) {
@@ -66,7 +68,7 @@ namespace HTW {
                     Person* person = currentItem->data;
                     delete(person->name);
                     delete(person->firstname);
-                    delete(person); // TODO: not shure if this is enough
+                    delete(person); // TODO: not sure if this is enough
 
                     currentItem->data = NULL;
                     currentItem->next = NULL;

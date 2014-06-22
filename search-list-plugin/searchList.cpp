@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string.h>
 #include <iomanip>
-#include <ctime>
+#include "list_api_extended.h"
 
 using namespace std;
 
@@ -14,29 +14,6 @@ namespace HTW {
             namespace Plugin {
 
                 /* *************** Prototypes *************** */
-
-                /**
-                 * Outputs a person.
-                 * 
-                 * @param person
-                 */
-                void outputPerson(Person* person);
-
-                /**
-                 * Maps a given Sex enum to string.
-                 * 
-                 * @param sex the sex enum to be mapped
-                 * @return the mapped string
-                 */
-                string mapSexToString(Sex sex);
-
-                /**
-                 * Maps a given department enum to string
-                 * 
-                 * @param department the department enum to be mapped
-                 * @return the mapped string
-                 */
-                string mapDepartmentToString(Department department);
 
                 /* *************** Globals ***************** */
                 bool called = false;
@@ -98,57 +75,6 @@ namespace HTW {
                     }
                 }
 
-                void outputPerson(Person* person) {
-
-                    string birth("");
-                    birth.append(to_string(person->birth.day));
-                    birth.append("-");
-                    birth.append(to_string(person->birth.month));
-                    birth.append("-");
-                    birth.append(to_string(person->birth.year));
-
-                    string sex = mapSexToString(person->sex);
-                    string department = mapDepartmentToString(person->dept);
-                    // TODO: call map method for department and sex
-                    cout << "###################################" << endl;
-                    cout << "Die gefundene Person ist: " << endl;
-                    cout << endl;
-                    cout << setw(10) << "Name" << setw(5) << "|" << setw(10) << "Firstname" << setw(5) << "|" << setw(15) << "Department";
-                    cout << setw(5) << "|" << setw(10) << "Birth" << setw(5) << "|" << setw(10) << "Sex" << endl;
-                    cout << setw(10) << person->name << setw(5) << "|" << setw(10) << person->firstname << setw(5) << "|" << setw(15) << department;
-                    cout << setw(5) << "|" << setw(10) << birth << setw(5) << "|" << setw(10) << sex << endl;
-
-                }
-
-                /**
-                 * {@inheritDoc}
-                 */
-                string mapDepartmentToString(Department department) {
-
-                    switch (department) {
-                        case Controlling:
-                            return "Controlling";
-                        case Management:
-                            return "Management";
-                        case Production1:
-                            return "Production1";
-                        case Production2:
-                            return "Production2";
-                    }
-
-                }
-
-                /**
-                 * {@inheritDoc}
-                 */
-                string mapSexToString(Sex sex) {
-                    switch (sex) {
-                        case male:
-                            return "Male";
-                        case female:
-                            return "Female";
-                    }
-                }
             }
         }
     }
