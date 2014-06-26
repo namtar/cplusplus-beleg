@@ -101,7 +101,7 @@ int main(int argc, char** argv) {
     for (iter = menueItems.begin(); iter != menueItems.end(); ++iter) {
         delete iter->second;
     }
-    
+
 
     cout << endl;
     cout << "Bye bye" << endl;
@@ -130,10 +130,32 @@ void printMenu() {
 int getMenuInput() {
 
     cout << "Choose: ";
-    int input = -1;
-    cin >> input;
 
-    // TODO: do some validation here. perhaps put it all in a loop until a valid menu entry has been chosen
+    bool done = false;
+    int input = -1;
+    do {
+        cin >> input;
+        if (cin.fail()) {
+            cout << "Please enter a valid integer according to the menu." << endl;
+            cout << endl;
+            cout << "Choose: ";
+            cin.clear();
+            cin.ignore(256, '\n'); // ignore must be executet AFTER cin.clear to prevent a infinite loop.
+        } else {
+            map<int, MenueEntry*>::iterator it = menueItems.find(input);
+
+            if (it != menueItems.end() || input == 0) {
+                done = true;
+            } else {
+                cout << endl;
+                cout << "The input does not match to the available options. " << endl;
+                cout << endl;
+                cout << "Choose: ";
+                cin.clear(); // dont forget to clear cin, otherwise we never get a true state.
+            }
+        }
+
+    } while (!done);
     return input;
 }
 
