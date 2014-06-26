@@ -2,6 +2,7 @@
 #include "plugin.h"
 #include "outputList.h"
 #include <stdlib.h>
+#include <iostream>
 
 using namespace std;
 
@@ -37,6 +38,11 @@ namespace HTW {
                  * {@inheritDoc}
                  */
                 void outputList(ListPerson* list) {
+
+                    if (list == NULL) {
+                        std::cout << endl;
+                        std::cout << "List is null" << endl;
+                    }
 
                     ListPerson* currentPerson = list;
 

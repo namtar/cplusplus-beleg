@@ -40,10 +40,9 @@ namespace HTW {
                 }
 
                 /**
-                 * {@inheritDoc}                 
+                 * {@inheritDoc}
                  */
                 void deleteAllListelements(ListPerson* list) {
-
                     ListPerson* currentItemToDelete = list;
                     ListPerson* nextItemToDelete = NULL;
                     if (currentItemToDelete != NULL) {
@@ -51,31 +50,14 @@ namespace HTW {
                             nextItemToDelete = currentItemToDelete->next;
                         }
 
-                        deleteCurrentItem(currentItemToDelete);
+                        remove(currentItemToDelete);
                         while (nextItemToDelete != NULL) {
                             currentItemToDelete = nextItemToDelete;
                             nextItemToDelete = currentItemToDelete->next;
-                            deleteCurrentItem(currentItemToDelete);
+                            remove(currentItemToDelete);
                             // delete current item
                         }
                     }
-                    // at last set list NULL
-                    list = NULL;
-                }
-
-                bool deleteCurrentItem(ListPerson* currentItem) {
-
-                    Person* person = currentItem->data;
-                    delete(person->name);
-                    delete(person->firstname);
-                    delete(person); // TODO: not sure if this is enough
-
-                    currentItem->data = NULL;
-                    currentItem->next = NULL;
-
-                    delete(currentItem);
-
-                    return true;
                 }
             }
         }
