@@ -19,6 +19,8 @@ using namespace std;
 using namespace HTW::AI::Beleg;
 using namespace HTW::AI::Beleg::Plugin;
 
+/* *********** Globals *********** */
+
 vector<void*> handles;
 
 struct MenueEntry {
@@ -27,6 +29,8 @@ struct MenueEntry {
 };
 
 map<int, MenueEntry*> menueItems;
+
+/* *********** Prototypes *********** */
 
 /**
  * Prints the common menu which contains the basic functionality which is provided by the list api
@@ -50,15 +54,10 @@ int getMenuInput();
  */
 void loadModules();
 
+/* *********** Implementations *********** */
+
 /*
- * @See: http://stackoverflow.com/questions/1142103/how-do-i-load-a-shared-object-in-c
- * @See: http://www.willemer.de/informatik/cpp/stl.htm
- * @See: http://www.infernodevelopment.com/how-create-dll-c-using-run-time-dynamic-linking
- * @See: http://www.learncpp.com/cpp-tutorial/a1-static-and-dynamic-libraries/
- * @See: http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html
- * @See: http://stackoverflow.com/questions/496664/c-dynamic-shared-library-on-linux
- * @See: http://www.faqs.org/docs/Linux-mini/C++-dlopen.html
- * @See: http://bartgrantham.com/articles/dynamic-libraries-in-c-and-c/
+ * Main function.
  */
 int main(int argc, char** argv) {
 
@@ -109,6 +108,9 @@ int main(int argc, char** argv) {
     return EXIT_SUCCESS;
 }
 
+/**
+ * {@inheritDoc}
+ */
 void printMenu() {
 
     cout << endl;
@@ -127,18 +129,20 @@ void printMenu() {
     cout << "0: End program" << endl;
 }
 
+/**
+ * {@inheritDoc}
+ */
 int getMenuInput() {
 
-    cout << "Choose: ";
 
     bool done = false;
     int input = -1;
     do {
+        cout << "Choose: ";
         cin >> input;
         if (cin.fail()) {
             cout << "Please enter a valid integer according to the menu." << endl;
             cout << endl;
-            cout << "Choose: ";
             cin.clear();
             cin.ignore(256, '\n'); // ignore must be executet AFTER cin.clear to prevent a infinite loop.
         } else {
@@ -150,7 +154,6 @@ int getMenuInput() {
                 cout << endl;
                 cout << "The input does not match to the available options. " << endl;
                 cout << endl;
-                cout << "Choose: ";
                 cin.clear(); // dont forget to clear cin, otherwise we never get a true state.
             }
         }
@@ -159,6 +162,9 @@ int getMenuInput() {
     return input;
 }
 
+/**
+ * {@inheritDoc}
+ */
 void loadModules() {
 
     DIR* dir = opendir("plugins");
@@ -188,6 +194,9 @@ void loadModules() {
     closedir(dir);
 }
 
+/**
+ * {@inheritDoc}
+ */
 void generateMenue() {
 
     char* error;
