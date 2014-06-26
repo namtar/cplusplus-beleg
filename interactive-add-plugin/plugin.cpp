@@ -18,7 +18,20 @@ namespace HTW {
                  */
                 void printAllDeparments();
 
+                /**
+                 * Maps a given integer to the department enum.
+                 * 
+                 * @param value the int value to be mapped
+                 * @return the mapped deparment
+                 */
                 Department mapIntToDepartment(int value);
+
+                /**
+                 * Maps a given integer to the sex enum.
+                 * 
+                 * @param value the int value to be mapped
+                 * @return the mapped sex
+                 */
                 Sex mapIntToSex(int value);
 
                 /* *************** Globals ***************** */
