@@ -50,24 +50,6 @@ int getMenuInput();
  */
 void loadModules();
 
-void testSo() {
-    char* error;
-
-    void* handle = dlopen("plugins/libinteractive-add-plugin.so", RTLD_LAZY);
-    error = dlerror();
-    if (error) {
-        cout << "Error when loading the lib" << endl;
-        exit(1);
-    }
-
-    plugin_info_f_t fuPointer = (plugin_info_f_t) dlsym(handle, PLUGIN_INFO_F_NAME);
-    plugin_info_struct infoStruct = fuPointer();
-
-    cout << "P: " << infoStruct.info[0].name << endl;
-    //    plugin_f_t functionP = (plugin_f_t) dlsym(handle, infoStruct.info[0].name);    
-    ListPerson* list;
-}
-
 /*
  * @See: http://stackoverflow.com/questions/1142103/how-do-i-load-a-shared-object-in-c
  * @See: http://www.willemer.de/informatik/cpp/stl.htm
@@ -114,6 +96,13 @@ int main(int argc, char** argv) {
         }
     }
 
+    // clear up allocated memory here
+    map<int, MenueEntry*>::iterator iter;
+    for (iter = menueItems.begin(); iter != menueItems.end(); ++iter) {
+        delete iter->second;
+    }
+    
+
     cout << endl;
     cout << "Bye bye" << endl;
 
@@ -155,7 +144,6 @@ void loadModules() {
     char* error;
 
     while (pdir = readdir(dir)) {
-        //        cout << pdir->d_name << endl; // working..... load only special files
         string fileName = pdir->d_name;
         // analyze if the first three chars are lib
         // see if the name contains .so
@@ -196,6 +184,13 @@ void generateMenue() {
         plugin_info_struct infoStruct = pluginInfoPointer();
         for (int i = 0; i < infoStruct.num; i++) {
             MenueEntry* entry = new MenueEntry();
+
+            // error handling for memory
+            if (entry == NULL) {
+                cerr << "No more memory left!!" << endl;
+                exit(EXIT_FAILURE);
+            }
+
             entry->handle = *it;
             entry->info = &infoStruct.info[i];
             //            menueItems[menueCount] = entry;

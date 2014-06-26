@@ -34,7 +34,6 @@ namespace HTW {
              * {@inheritDoc}
              */
             bool add(Person* data) {
-                outputPerson(data);
                 bool returnVal = false;
 
                 ListPerson *actual = personList; // get first element
