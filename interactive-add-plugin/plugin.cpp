@@ -69,6 +69,21 @@ namespace HTW {
                  */
                 bool determineLeapYear(short year);
 
+                /**
+                 * Does the handling to add a person to the end of the list.
+                 * 
+                 * @param person the person to add
+                 */
+                void handleAdd(Person* person);
+
+                /**
+                 * Does the handling to insert a person before or after a specific list entry.
+                 * 
+                 * @param person the person to insert
+                 * @param before ture if before, false after
+                 */
+                void handleInsert(Person* person, bool before);
+
 
                 /* *************** Globals ***************** */
 
@@ -106,7 +121,6 @@ namespace HTW {
                     Sex sex;
 
                     cout << "Gib eine neue Person ein" << endl;
-                    // TODO: Eingabe aller Daten und Fehlerüberprüfung
                     cout << "Gib den Vornamen ein: " << endl;
                     cin >> firstName;
                     cout << "Gib den Nachnamen ein: " << endl;
@@ -139,10 +153,42 @@ namespace HTW {
                     newPerson->sex = sex;
                     newPerson->birth = birth;
 
-                    if (HTW::AI::Beleg::add(newPerson)) {
-                        cout << "Person erfolgreich gespeichert." << endl;
-                    } else {
-                        cout << "Fehler beim anlegen" << endl;
+                    // ask if the person has to be added to the end of the list or insertAfter or insertBefore a specific element
+                    int storeTo(-1);
+                    bool done = false;
+                    do {
+                        cout << "Chose how to store the new entry." << endl;
+                        cout << "1: add to the end." << endl;
+                        cout << "2: insert after a specific element." << endl;
+                        cout << "3: insert before a specific element." << endl;
+                        cin >> storeTo;
+                        if (cin.fail()) {
+                            cout << "Please enter a valid integer according to the menu." << endl;
+                            cout << endl;
+                            cin.clear();
+                            cin.ignore(256, '\n'); // ignore must be executed AFTER cin.clear to prevent a infinite loop.
+                        } else {
+                            done = true;
+                            if (storeTo < 1 || storeTo > 3) {
+                                cout << "The input does not match to the available options." << endl;
+                                cout << endl;
+                                cin.clear();
+                                done = false;
+                            }
+                        }
+
+                    } while (!done);
+
+                    switch (storeTo) {
+                        case 1: //add
+                            handleAdd(newPerson);
+                            break;
+                        case 2: // insert after
+                            handleInsert(newPerson, false);
+                            break;
+                        case 3: // insert before
+                            handleInsert(newPerson, true);
+                            break;
                     }
                 }
 
@@ -201,7 +247,7 @@ namespace HTW {
                                 sex = mapIntToSex(sexInput);
                                 done = true;
                             } else {
-                                cout << "The input do not match to the available options." << endl;
+                                cout << "The input does not match to the available options." << endl;
                                 cout << endl;
                                 cin.clear();
                             }
@@ -337,7 +383,7 @@ namespace HTW {
                         printAllDeparments();
                         cin >> departmentInput;
                         if (cin.fail()) {
-                            cout << "Please enter a valid integer which." << endl;
+                            cout << "Please enter a valid integer." << endl;
                             cout << endl;
                             cin.clear();
                             cin.ignore(256, '\n'); // ignore must be executed AFTER cin.clear to prevent a infinite loop.
@@ -354,6 +400,77 @@ namespace HTW {
                     } while (!done);
 
                     return mapIntToDepartment(departmentInput);
+                }
+
+                void handleAdd(Person* person) {
+                    if (add(person)) {
+                        cout << "Person erfolgreich gespeichert." << endl;
+                    } else {
+                        cout << "Fehler beim anlegen" << endl;
+                    }
+                }
+
+                void handleInsert(Person* person, bool before) {
+
+                    // output the list with index values.
+                    // user must chose a valid one to insert before.
+                    // if there are no list entries, the add function is used.
+                    ListPerson* list = getList();
+                    if (list == NULL) {
+                        cout << "The list is empty. The person will be added via add function." << endl;
+                        handleAdd(person);
+                        return;
+                    }
+                    if (list->data == NULL) {
+                        // this may not happen. If this is the case our list is corrupt.
+                        cerr << "We have a list entry, but the person is null. This may not happen. The list is corrupt." << endl;
+                        exit(EXIT_FAILURE);
+                    }
+
+                    int cnt(0);
+                    ListPerson* currentItem = list;
+                    // we ensured that we have an entry.
+                    cout << "Chose the index of the list item the new person shall be inserted before." << endl;
+                    cout << endl;
+                    do {
+                        cnt++;
+                        cout << cnt << ": " << currentItem->data->name << ", " << currentItem->data->firstname << endl;
+                        currentItem = currentItem->next;
+                    } while (currentItem != NULL);
+                    int chosenItem(-1);
+                    bool done = false;
+                    do {
+                        cin >> chosenItem;
+                        if (cin.fail()) {
+                            cout << "Please enter a valid integer." << endl;
+                            cout << endl;
+                            cin.clear();
+                            cin.ignore(256, '\n'); // ignore must be executed AFTER cin.clear to prevent a infinite loop.
+                        } else {
+                            done = true;
+                            if (chosenItem < 0 || chosenItem > cnt) {
+                                cout << "The input does not match to the available options." << endl;
+                                cout << endl;
+                                cin.clear();
+                                done = false;
+                            }
+                        }
+                    } while (!done);
+
+                    // get the chosen list item and call the function to store the new person.
+                    currentItem = list;
+                    for (int i = 1; i <= cnt; i++) {
+                        if (i == cnt) {
+                            // we have our item
+                            if (before) {
+                                insertBefore(currentItem, person);
+                            } else {
+                                insertAfter(currentItem, person);
+                            }
+                            break;
+                        }
+                        currentItem = currentItem->next;
+                    }
                 }
             }
         }

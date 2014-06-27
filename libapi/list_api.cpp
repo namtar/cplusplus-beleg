@@ -77,6 +77,7 @@ namespace HTW {
                 bool result = false;
 
                 if (element == NULL || data == NULL) {
+                    cerr << "Wrong use of the function. Neither the given ListPerson element nor the person itself may be null." << endl;
                     return result;
                 }
 
@@ -109,10 +110,10 @@ namespace HTW {
 
                 bool returnVal = false;
                 if (element == NULL || data == NULL) {
+                    cerr << "Wrong use of the function. Neither the given ListPerson element nor the person itself may be null." << endl;
                     return returnVal;
                 }
 
-                ListPerson* actualElem = personList;
                 ListPerson* newElem = new ListPerson();
 
                 if (newElem == NULL) {
@@ -122,17 +123,29 @@ namespace HTW {
 
                 newElem->data = data;
 
-                // get the element before
-                bool done = false;
-                while (!done) {
-                    if (actualElem->next == element) {
 
-                        actualElem->next = newElem;
-                        newElem->next = element;
-                        done = true;
-                        returnVal = true;
-                    } else {
-                        actualElem = actualElem->next;
+                ListPerson* actualElem = personList;
+                // mention the case to insert before the first list element.
+                if (element == personList) {
+                    // this should do the trick
+                    personList = newElem;
+                    newElem->next = actualElem;
+                } else {
+                    bool done = false;
+                    while (!done) {
+                        if (actualElem == NULL) {
+                            // break to avoid null pointer.
+                            break;
+                        }
+
+                        if (actualElem->next == element) {
+                            actualElem->next = newElem;
+                            newElem->next = element;
+                            done = true;
+                            returnVal = true;
+                        } else {
+                            actualElem = actualElem->next;
+                        }
                     }
                 }
                 return returnVal;
