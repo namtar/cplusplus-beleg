@@ -4,11 +4,6 @@
 #include <iomanip>
 #include <string>
 
-/**
- * Stupid ugly style to add extern "C" to the function implementations which prototypes are defined in the header.
- * This is done here because the header files may not be modified.
- */
-
 using namespace std;
 
 namespace HTW {
