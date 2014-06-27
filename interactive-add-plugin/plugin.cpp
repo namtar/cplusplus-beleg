@@ -34,6 +34,14 @@ namespace HTW {
                  */
                 Sex mapIntToSex(int value);
 
+                //                string getFirstName();
+                //                string getName();
+                Sex getSex();
+                Department getDepartment();
+                Date getBirthDate();
+                bool determineLeapYear(short year);
+
+
                 /* *************** Globals ***************** */
 
                 plugin_info_struct pInfo;
@@ -68,9 +76,6 @@ namespace HTW {
                     string name;
                     Department department;
                     Sex sex;
-                    short year;
-                    short month;
-                    short day;
                     int departmentInput;
                     int sexInput;
 
@@ -85,26 +90,19 @@ namespace HTW {
                     cin >> departmentInput;
                     department = mapIntToDepartment(departmentInput);
 
-                    cout << "Gib das Geschlecht ein: " << endl;
-                    cout << "1: weiblich" << endl;
-                    cout << "2: männlich" << endl;
-                    cin >> sexInput;
-                    sex = mapIntToSex(sexInput);
+                    sex = getSex();
 
-                    cout << "Gib das Geburtsjahr ein: [z.B. 1979]" << endl;
-                    cin >> year;
-                    cout << "Gib den Geburtsmonat ein: " << endl;
-                    cin >> month;
-                    cout << "Gib den Geburtstag ein: " << endl;
-                    cin >> day;
-
-                    Date birth;
-                    birth.year = year;
-                    birth.month = month;
-                    birth.day = day;
+                    Date birth = getBirthDate();
 
                     Person* newPerson = new Person();
 
+                    // check for memory left.
+                    if (newPerson == NULL) {
+                        cerr << "Not enough memory available." << endl;
+                        exit(EXIT_FAILURE);
+                    }
+
+                    // finally after all input, combine all.
                     char * nameWritable = new char[name.size() + 1];
                     std::copy(name.begin(), name.end(), nameWritable);
                     nameWritable[name.size()] = '\0'; // don't forget the terminating 0
@@ -118,12 +116,6 @@ namespace HTW {
                     newPerson->dept = department;
                     newPerson->sex = sex;
                     newPerson->birth = birth;
-
-                    bool finished = false;
-                    //                    do {
-                    //                        // eingaben hier
-                    //                        // wenn die eingabe korrekt ist, dann finished = true
-                    //                    } while (!finished);
 
                     if (HTW::AI::Beleg::add(newPerson)) {
                         cout << "Person erfolgreich gespeichert." << endl;
@@ -164,6 +156,155 @@ namespace HTW {
                     }
                 }
 
+                Sex getSex() {
+                    bool done = false;
+                    int sexInput;
+                    Sex sex;
+                    do {
+
+                        cout << "Gib das Geschlecht ein: " << endl;
+                        cout << "1: weiblich" << endl;
+                        cout << "2: männlich" << endl;
+                        cin >> sexInput;
+
+                        if (cin.fail()) {
+                            // input of string or something else
+                            cout << "Please enter a valid integer according to the menu." << endl;
+                            cout << endl;
+                            cin.clear();
+                            cin.ignore(256, '\n'); // ignore must be executet AFTER cin.clear to prevent a infinite loop.
+                        } else {
+
+                            if (sexInput == 1 || sexInput == 2) {
+                                sex = mapIntToSex(sexInput);
+                                done = true;
+                            } else {
+                                cout << "The input do not match to the available options." << endl;
+                                cout << endl;
+                                cin.clear();
+                            }
+                        }
+
+                    } while (!done);
+                    return sex;
+                }
+
+                Date getBirthDate() {
+                    short year;
+                    short month;
+                    short day;
+
+                    bool done = false;
+                    do {
+                        cout << "Gib das Geburtsjahr ein: [z.B. 1979]" << endl;
+                        cin >> year;
+                        if (cin.fail()) {
+                            cout << "Please enter a valid integer which." << endl;
+                            cout << endl;
+                            cin.clear();
+                            cin.ignore(256, '\n'); // ignore must be executet AFTER cin.clear to prevent a infinite loop.
+                        } else {
+                            if (year < 1970 || year > 2100) {
+                                cout << "Please enter the year in the valid ranges gt 1970 and lt 2100" << endl;
+                                cout << endl;
+                                cin.clear();
+                            } else {
+                                done = true;
+                            }
+                        }
+
+                    } while (!done);
+
+                    done = false;
+                    do {
+                        cout << "Gib den Geburtsmonat ein: " << endl;
+                        cin >> month;
+                        if (cin.fail()) {
+                            cout << "Please enter a valid integer which." << endl;
+                            cout << endl;
+                            cin.clear();
+                            cin.ignore(256, '\n'); // ignore must be executet AFTER cin.clear to prevent a infinite loop.
+                        } else {
+                            if (month < 1 || month > 12) {
+                                cout << "Please enter a month which is gt 0 and lt 13." << endl;
+                                cout << endl;
+                                cin.clear();
+                            } else {
+                                done = true;
+                            }
+                        }
+
+                    } while (!done);
+
+                    done = false;
+                    do {
+                        cout << "Gib den Geburtstag ein: " << endl;
+                        cin >> day;
+
+                        if (cin.fail()) {
+                            cout << "Please enter a valid integer which." << endl;
+                            cout << endl;
+                            cin.clear();
+                            cin.ignore(256, '\n'); // ignore must be executet AFTER cin.clear to prevent a infinite loop.
+                        } else {
+                            // check months with 30 days
+                            done = true;
+                            if (month == 4 || month == 6 || month == 9 || month == 11) {
+                                if (day < 1 || day > 30) {
+                                    cout << "The day must be between 1 and 30" << endl;
+                                    cout << endl;
+                                    done = false;
+                                    cin.clear();
+                                }
+                            } else if (month == 2) {
+                                // Schaltjahr (Leap year) handling
+                                if (determineLeapYear(year)) {
+                                    // february must have 29 days
+                                    if (day < 1 || day > 29) {
+                                        cout << "The day must be between 1 and 29" << endl;
+                                        cout << endl;
+                                        done = false;
+                                        cin.clear();
+                                    }
+                                } else {
+                                    // february must have 28 days
+                                    if (day < 1 || day > 28) {
+                                        cout << "The day must be between 1 and 28" << endl;
+                                        cout << endl;
+                                        done = false;
+                                        cin.clear();
+                                    }
+                                }
+                            } else {
+                                if (day < 1 || day > 31) {
+                                    cout << "The day must be between 1 and 31" << endl;
+                                    cout << endl;
+                                    done = false;
+                                    cin.clear();
+                                }
+                            }
+                        }
+                    } while (!done);
+
+                    Date date;
+                    date.year = year;
+                    date.month = month;
+                    date.day = day;
+
+
+                    return date;
+                }
+
+                bool determineLeapYear(short year) {
+                    if ((year % 400) == 0) {
+                        return true;
+                    } else if ((year % 100) == 0) {
+                        return false;
+                    } else if ((year % 4) == 0) {
+                        return true;
+                    }
+                    return false; // default
+                }
             }
         }
     }
