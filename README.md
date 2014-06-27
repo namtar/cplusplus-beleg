@@ -47,12 +47,12 @@ Erzeugen von shared libraries:
 * g++ -shared -m64 -fPIC -o libapi.so api.cc
 
 Linken zur Kompilezeit:
-* g++ -o listmanager listmanager.cc -L <pathToLib> -l api
+* g++ -o listmanager listmanager.cc -L "pathToLib" -l api
 
 Kann auch in Netbeans direkt eingestellt werden als zusätzliche Kompileroptionen:
 * -L ~/NetBeansProjects/cplusplus-beleg/runFolder -l libapi
 * g++ -Wall -o test main.cpp -L . -l libapi -v -Wl,--no-as-needed -ldl -std=c++11
-* g++ -Wall -o main-program main.cpp -L <path to lib> -l libapi -v -ldl -Wl,-rpath=. -Wl,--verbose --std=c++11
+* g++ -Wall -o main-program main.cpp -L "path to lib" -l libapi -v -ldl -Wl,-rpath=. -Wl,--verbose --std=c++11
 
 Program ausführen und auf Memory Leaks prüfen:
 * valgrind --tool=memcheck --leak-check=full ./main-program
