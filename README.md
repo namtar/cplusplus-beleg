@@ -33,6 +33,10 @@ Das Repository besteht aus mehreren separaten C++ Projekten.
 * search-list-plugin (Eine Shared Library, welche als Plugin die Funktionalität bereitstellt anhand des Nachnames ein Listenelement zu suchen)
 * output-list-plugin (Eine Shared Library, welche als Plugin die Funktionalität bereitstellt alle Listenelemente auf dem Bildschirm auszugeben)
 * delete-listelements-plugin (Eine Shared Library, welche als Plugin die Funktionalität bereitstellt alle Listenelemente aus der Liste zu löschen)
+
+###### Plugins und ListApi
+* Funktionen, die in den Plugins implementiert werden müssen ebenfalls mit dem Schlüsselwort extern "C" versehen werden.
+* Die ListApi braucht nur den Header list_api.h implementieren. Keine der Funktionen benötigt das Schlüsselwort extern. Diese Funktionen können auch von den Plugins ohne Probleme aufgerufen werden.
  
 
 ###### Kompilerbefehle:
@@ -48,3 +52,7 @@ Linken zur Kompilezeit:
 Kann auch in Netbeans direkt eingestellt werden als zusätzliche Kompileroptionen:
 * -L ~/NetBeansProjects/cplusplus-beleg/runFolder -l libapi
 * g++ -Wall -o test main.cpp -L . -l libapi -v -Wl,--no-as-needed -ldl -std=c++11
+* g++ -Wall -o main-program main.cpp -L <path to lib> -l libapi -v -ldl -Wl,-rpath=. -Wl,--verbose --std=c++11
+
+Program ausführen und auf Memory Leaks prüfen:
+* valgrind --tool=memcheck --leak-check=full ./main-program
