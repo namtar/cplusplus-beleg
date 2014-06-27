@@ -82,6 +82,7 @@ namespace HTW {
                 }
 
                 ListPerson* nextElem = new ListPerson();
+                nextElem->next = NULL;
 
                 if (nextElem == NULL) {
                     cerr << "No more memory available." << endl;

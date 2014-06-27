@@ -460,7 +460,7 @@ namespace HTW {
                     // get the chosen list item and call the function to store the new person.
                     currentItem = list;
                     for (int i = 1; i <= cnt; i++) {
-                        if (i == cnt) {
+                        if (i == chosenItem) {
                             // we have our item
                             if (before) {
                                 insertBefore(currentItem, person);
