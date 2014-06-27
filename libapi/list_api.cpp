@@ -40,6 +40,11 @@ namespace HTW {
                 if (actual == NULL) {
                     // there is no lists. create one
                     actual = new ListPerson();
+                    if (actual == NULL) {
+                        cerr << "No more memory available." << endl;
+                        exit(EXIT_FAILURE);
+                    }
+
                     actual->data = data;
                     personList = actual;
                     returnVal = true;
@@ -51,9 +56,13 @@ namespace HTW {
                         if (actual->next == NULL) {
                             // reached end of the list.
                             // append here
-                            ListPerson* newListPersion = new ListPerson();
-                            newListPersion->data = data;
-                            actual->next = newListPersion;
+                            ListPerson* newListPerson = new ListPerson();
+                            if (newListPerson == NULL) {
+                                cerr << "No more memory available." << endl;
+                                exit(EXIT_FAILURE);
+                            }
+                            newListPerson->data = data;
+                            actual->next = newListPerson;
                             done = true;
                             returnVal = true;
                         } else {
@@ -71,6 +80,12 @@ namespace HTW {
             bool insertAfter(ListPerson* element, Person* data) {
 
                 ListPerson* nextElem = new ListPerson();
+
+                if (nextElem == NULL) {
+                    cerr << "No more memory available." << endl;
+                    exit(EXIT_FAILURE);
+                }
+
                 nextElem->data = data;
 
                 if (element->next != NULL) {
@@ -89,6 +104,12 @@ namespace HTW {
             bool insertBefore(ListPerson* element, Person* data) {
                 ListPerson* actualElem = personList;
                 ListPerson* newElem = new ListPerson();
+
+                if (newElem == NULL) {
+                    cerr << "No more memory available." << endl;
+                    exit(EXIT_FAILURE);
+                }
+
                 newElem->data = data;
 
                 bool returnVal = false;
