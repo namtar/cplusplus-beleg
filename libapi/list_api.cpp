@@ -79,6 +79,12 @@ namespace HTW {
              */
             bool insertAfter(ListPerson* element, Person* data) {
 
+                bool result = false;
+
+                if (element == NULL || data == NULL) {
+                    return result;
+                }
+
                 ListPerson* nextElem = new ListPerson();
 
                 if (nextElem == NULL) {
@@ -92,16 +98,25 @@ namespace HTW {
                     ListPerson* afterElem = element->next;
                     element->next = nextElem;
                     nextElem->next = afterElem;
+                    result = true;
                 } else {
                     element->next = nextElem;
+                    result = true;
                 }
 
+                return result;
             }
 
             /**
              * {@inheritDoc}
              */
             bool insertBefore(ListPerson* element, Person* data) {
+
+                bool returnVal = false;
+                if (element == NULL || data == NULL) {
+                    return returnVal;
+                }
+
                 ListPerson* actualElem = personList;
                 ListPerson* newElem = new ListPerson();
 
@@ -111,8 +126,6 @@ namespace HTW {
                 }
 
                 newElem->data = data;
-
-                bool returnVal = false;
 
                 // get the element before
                 bool done = false;
