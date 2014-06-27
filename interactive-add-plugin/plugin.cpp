@@ -36,9 +36,37 @@ namespace HTW {
 
                 //                string getFirstName();
                 //                string getName();
+
+                /**
+                 * Returns the sex of a person.
+                 * 
+                 * @return the sex
+                 */
                 Sex getSex();
+
+                /**
+                 * Returns the deparment the person belongs to.
+                 * 
+                 * @return the deparment
+                 */
                 Department getDepartment();
+
+                /**
+                 * Returns the birthdate of a person.
+                 * 
+                 * @return the birthdate
+                 */
                 Date getBirthDate();
+
+                /**
+                 * Detemines wether the given year is a leap year or not.<br>
+                 * The rule is:<br>
+                 * If a year is divideable through 4 without rest than it is a leap year, but if it is divideable through 100 without rest<br>
+                 * it is no leap year, but if it is divideable through 400 it is a leap year.
+                 * 
+                 * @param year the year to be checked
+                 * @return true if the given year is a leap year otherwise false.
+                 */
                 bool determineLeapYear(short year);
 
 
@@ -76,8 +104,6 @@ namespace HTW {
                     string name;
                     Department department;
                     Sex sex;
-                    int departmentInput;
-                    int sexInput;
 
                     cout << "Gib eine neue Person ein" << endl;
                     // TODO: Eingabe aller Daten und Fehlerüberprüfung
@@ -85,13 +111,9 @@ namespace HTW {
                     cin >> firstName;
                     cout << "Gib den Nachnamen ein: " << endl;
                     cin >> name;
-                    cout << "Gib das Department ein: " << endl;
-                    printAllDeparments();
-                    cin >> departmentInput;
-                    department = mapIntToDepartment(departmentInput);
 
+                    department = getDepartment();
                     sex = getSex();
-
                     Date birth = getBirthDate();
 
                     Person* newPerson = new Person();
@@ -172,7 +194,7 @@ namespace HTW {
                             cout << "Please enter a valid integer according to the menu." << endl;
                             cout << endl;
                             cin.clear();
-                            cin.ignore(256, '\n'); // ignore must be executet AFTER cin.clear to prevent a infinite loop.
+                            cin.ignore(256, '\n'); // ignore must be executed AFTER cin.clear to prevent a infinite loop.
                         } else {
 
                             if (sexInput == 1 || sexInput == 2) {
@@ -202,7 +224,7 @@ namespace HTW {
                             cout << "Please enter a valid integer which." << endl;
                             cout << endl;
                             cin.clear();
-                            cin.ignore(256, '\n'); // ignore must be executet AFTER cin.clear to prevent a infinite loop.
+                            cin.ignore(256, '\n'); // ignore must be executed AFTER cin.clear to prevent a infinite loop.
                         } else {
                             if (year < 1970 || year > 2100) {
                                 cout << "Please enter the year in the valid ranges gt 1970 and lt 2100" << endl;
@@ -223,7 +245,7 @@ namespace HTW {
                             cout << "Please enter a valid integer which." << endl;
                             cout << endl;
                             cin.clear();
-                            cin.ignore(256, '\n'); // ignore must be executet AFTER cin.clear to prevent a infinite loop.
+                            cin.ignore(256, '\n'); // ignore must be executed AFTER cin.clear to prevent a infinite loop.
                         } else {
                             if (month < 1 || month > 12) {
                                 cout << "Please enter a month which is gt 0 and lt 13." << endl;
@@ -245,7 +267,7 @@ namespace HTW {
                             cout << "Please enter a valid integer which." << endl;
                             cout << endl;
                             cin.clear();
-                            cin.ignore(256, '\n'); // ignore must be executet AFTER cin.clear to prevent a infinite loop.
+                            cin.ignore(256, '\n'); // ignore must be executed AFTER cin.clear to prevent a infinite loop.
                         } else {
                             // check months with 30 days
                             done = true;
@@ -304,6 +326,34 @@ namespace HTW {
                         return true;
                     }
                     return false; // default
+                }
+
+                Department getDepartment() {
+
+                    int departmentInput;
+                    bool done = false;
+                    do {
+                        cout << "Gib das Department ein: " << endl;
+                        printAllDeparments();
+                        cin >> departmentInput;
+                        if (cin.fail()) {
+                            cout << "Please enter a valid integer which." << endl;
+                            cout << endl;
+                            cin.clear();
+                            cin.ignore(256, '\n'); // ignore must be executed AFTER cin.clear to prevent a infinite loop.
+                        } else {
+                            done = true;
+                            if (departmentInput < 1 || departmentInput > 4) {
+                                cout << "The input does not match to the available options." << endl;
+                                cout << endl;
+                                cin.clear();
+                                done = false;
+                            }
+                        }
+
+                    } while (!done);
+
+                    return mapIntToDepartment(departmentInput);
                 }
             }
         }
