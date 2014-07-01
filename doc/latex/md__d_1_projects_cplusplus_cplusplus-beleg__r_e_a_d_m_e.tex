@@ -1,0 +1,73 @@
+C plus plus Beleg des dritten Semesters
+
+Kommandos für die Console\-:
+
+
+\begin{DoxyItemize}
+\item git clone $<$\-Url zum=\char`\"{}\char`\"{} repo$>$=\char`\"{}\char`\"{}$>$ (Cloned das Projekt aus dem Remote Repository in ein lokales)
+\item git pull (Zieht aus dem Remote Repository zwischenzeitlich seit dem letzten pull erfolgte Änderungen)
+\item git add . (Fügt neue und geänderte Files ab der Position an der man sich im Verzeichnisbaum befindet hinzu)
+\item git commit -\/a (Commited Änderungen in das lokale Repository)
+\item git push origin master (Transferiert den Stand des lokalen Repos in das Remote Repo)
+\item git status (Zeigt den aktuellen lokalen Git Status an)
+\end{DoxyItemize}
+
+Ein sinniger Ablauf nachdem man entwickelt hat ist\-:
+\begin{DoxyItemize}
+\item git status
+\item git add . bzw git add $<$bestimmte dateien$>$=\char`\"{}\char`\"{}$>$
+\item git commit -\/a
+\item git pull (sollte man machen da git verhindert dass man pushed wenn nicht sichergestellt ist dass keine Konflikte auftreten)
+\item git push origin master
+\end{DoxyItemize}
+
+Man sollte einen pull auch nur dann ausführen, wenn man alle Änderungen in das lokale Repo eingecheckt hat.
+
+Wichtig, wenn I\-D\-E´s verwendet werden. Man muss immer einen commit aller files in das lokale Repository gemacht haben bevor man einen git pull ausführt. Tut man das nicht kommt es zu Konflikten mit denen z.\-B. Eclipse nicht richtig klar kommt.
+
+Es soll hier auch nur Quellcode eingecheckt werden und keine I\-D\-E spezifischen Files.
+
+Das Repository besteht aus mehreren separaten C++ Projekten.
+
+
+\begin{DoxyItemize}
+\item main-\/program (Das Hauptprogramm, welches die Shared Libraries einbindet und verwendet)
+\item libapi (Eine Shared Library welche Basisfunktionalität bereitstellt, die durch das Hauptprogramm als auch durch die jeweiligen Plugin Module benutzt werden)
+\item interactive-\/add-\/plugin (Eine Shared Library, welche als Plugin die Funktionalität bereitstellt interaktiv ein neues Listenelement einzugeben)
+\item search-\/list-\/plugin (Eine Shared Library, welche als Plugin die Funktionalität bereitstellt anhand des Nachnames ein Listenelement zu suchen)
+\item output-\/list-\/plugin (Eine Shared Library, welche als Plugin die Funktionalität bereitstellt alle Listenelemente auf dem Bildschirm auszugeben)
+\item delete-\/listelements-\/plugin (Eine Shared Library, welche als Plugin die Funktionalität bereitstellt alle Listenelemente aus der Liste zu löschen)
+\end{DoxyItemize}
+
+\subparagraph*{Plugins und List\-Api}
+
+
+\begin{DoxyItemize}
+\item Funktionen, die in den Plugins implementiert werden müssen ebenfalls mit dem Schlüsselwort extern \char`\"{}\-C\char`\"{} versehen werden.
+\item Die List\-Api braucht nur den Header list\-\_\-api.\-h implementieren. Keine der Funktionen benötigt das Schlüsselwort extern. Diese Funktionen können auch von den Plugins ohne Probleme aufgerufen werden.
+\end{DoxyItemize}
+
+\subparagraph*{Kompilerbefehle\-:}
+
+Erzeugen von shared libraries\-:
+\begin{DoxyItemize}
+\item g++ -\/shared -\/m64 -\/f\-P\-I\-C -\/o plugin1.\-so plugin1.\-cc
+\item g++ -\/shared -\/m64 -\/f\-P\-I\-C -\/o libapi.\-so api.\-cc
+\end{DoxyItemize}
+
+Linken zur Kompilezeit\-:
+\begin{DoxyItemize}
+\item g++ -\/o listmanager listmanager.\-cc -\/\-L \char`\"{}path\-To\-Lib\char`\"{} -\/l api
+\end{DoxyItemize}
+
+Kann auch in Netbeans direkt eingestellt werden als zusätzliche Kompileroptionen\-:
+\begin{DoxyItemize}
+\item -\/\-L $\sim$/\-Net\-Beans\-Projects/cplusplus-\/beleg/run\-Folder -\/l libapi
+\item g++ -\/\-Wall -\/o test \hyperlink{main_8cpp}{main.\-cpp} -\/\-L . -\/l libapi -\/v -\/\-Wl,--no-\/as-\/needed -\/ldl -\/std=c++11
+\item g++ -\/\-Wall -\/o main-\/program \hyperlink{main_8cpp}{main.\-cpp} -\/\-L \char`\"{}path to lib\char`\"{} -\/l libapi -\/v -\/ldl -\/\-Wl,-\/rpath=. -\/\-Wl,--verbose --std=c++11
+\end{DoxyItemize}
+
+Program ausführen und auf Memory Leaks prüfen\-:
+\begin{DoxyItemize}
+\item valgrind --tool=memcheck --leak-\/check=full ./main-\/program 
+\end{DoxyItemize}

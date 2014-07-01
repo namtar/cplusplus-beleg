@@ -1,0 +1,90 @@
+\hypertarget{main_8cpp}{\section{D\-:/projects/cplusplus/cplusplus-\/beleg/main-\/program/main.cpp File Reference}
+\label{main_8cpp}\index{D\-:/projects/cplusplus/cplusplus-\/beleg/main-\/program/main.\-cpp@{D\-:/projects/cplusplus/cplusplus-\/beleg/main-\/program/main.\-cpp}}
+}
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$dirent.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}plugin.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$dlfcn.\-h$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include \char`\"{}list\-\_\-api\-\_\-extended.\-h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_menue_entry}{Menue\-Entry}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main_8cpp_ab13e858612c64eeef73aff1d8a03945e}{print\-Menu} ()
+\item 
+void \hyperlink{main_8cpp_a7a59bc4d91b7b917961513e43549ba20}{generate\-Menue} ()
+\item 
+int \hyperlink{main_8cpp_a45c95738752cfe09345680db9f637402}{get\-Menu\-Input} ()
+\item 
+void \hyperlink{main_8cpp_adb8d3e0fa96180a82d847f73cd5edf51}{load\-Modules} ()
+\item 
+int \hyperlink{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ void $\ast$ $>$ \hyperlink{main_8cpp_abfb042b755e9de078225ff17d3875340}{handles}
+\item 
+map$<$ int, \hyperlink{struct_menue_entry}{Menue\-Entry} $\ast$ $>$ \hyperlink{main_8cpp_a12dbe4ce67242c28c11ef073aa6b9415}{menue\-Items}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{main_8cpp_a7a59bc4d91b7b917961513e43549ba20}{\index{main.\-cpp@{main.\-cpp}!generate\-Menue@{generate\-Menue}}
+\index{generate\-Menue@{generate\-Menue}!main.cpp@{main.\-cpp}}
+\subsubsection[{generate\-Menue}]{\setlength{\rightskip}{0pt plus 5cm}void generate\-Menue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{main_8cpp_a7a59bc4d91b7b917961513e43549ba20}
+Generates a menu depending on the loaded modules.\hypertarget{main_8cpp_a45c95738752cfe09345680db9f637402}{\index{main.\-cpp@{main.\-cpp}!get\-Menu\-Input@{get\-Menu\-Input}}
+\index{get\-Menu\-Input@{get\-Menu\-Input}!main.cpp@{main.\-cpp}}
+\subsubsection[{get\-Menu\-Input}]{\setlength{\rightskip}{0pt plus 5cm}int get\-Menu\-Input (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{main_8cpp_a45c95738752cfe09345680db9f637402}
+Gets the user input from the menue.
+
+\begin{DoxyReturn}{Returns}
+the chosen menu entry index
+\end{DoxyReturn}
+\hypertarget{main_8cpp_adb8d3e0fa96180a82d847f73cd5edf51}{\index{main.\-cpp@{main.\-cpp}!load\-Modules@{load\-Modules}}
+\index{load\-Modules@{load\-Modules}!main.cpp@{main.\-cpp}}
+\subsubsection[{load\-Modules}]{\setlength{\rightskip}{0pt plus 5cm}void load\-Modules (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{main_8cpp_adb8d3e0fa96180a82d847f73cd5edf51}
+Loads the modules from the pluginsfolder and adds the handles to a list.\hypertarget{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{\index{main.\-cpp@{main.\-cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.\-cpp}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{main_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+\hypertarget{main_8cpp_ab13e858612c64eeef73aff1d8a03945e}{\index{main.\-cpp@{main.\-cpp}!print\-Menu@{print\-Menu}}
+\index{print\-Menu@{print\-Menu}!main.cpp@{main.\-cpp}}
+\subsubsection[{print\-Menu}]{\setlength{\rightskip}{0pt plus 5cm}void print\-Menu (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{main_8cpp_ab13e858612c64eeef73aff1d8a03945e}
+Prints the common menu which contains the basic functionality which is provided by the list api
+
+\subsection{Variable Documentation}
+\hypertarget{main_8cpp_abfb042b755e9de078225ff17d3875340}{\index{main.\-cpp@{main.\-cpp}!handles@{handles}}
+\index{handles@{handles}!main.cpp@{main.\-cpp}}
+\subsubsection[{handles}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$void$\ast$$>$ handles}}\label{main_8cpp_abfb042b755e9de078225ff17d3875340}
+\hypertarget{main_8cpp_a12dbe4ce67242c28c11ef073aa6b9415}{\index{main.\-cpp@{main.\-cpp}!menue\-Items@{menue\-Items}}
+\index{menue\-Items@{menue\-Items}!main.cpp@{main.\-cpp}}
+\subsubsection[{menue\-Items}]{\setlength{\rightskip}{0pt plus 5cm}map$<$int, {\bf Menue\-Entry}$\ast$$>$ menue\-Items}}\label{main_8cpp_a12dbe4ce67242c28c11ef073aa6b9415}
