@@ -157,6 +157,10 @@ namespace HTW {
              */
             void remove(ListPerson* element) {
 
+                if (element == NULL) {
+                    cout << "The given element is null " << endl;
+                }
+
                 ListPerson* rootElement = getList();
                 // if element is the first one of the list check for follower.
                 // if it has a follower delete element and set pointer to follower, otherwise set pointer = NULL
@@ -166,6 +170,8 @@ namespace HTW {
                         nextOne = element->next;
                     }
                     Person* personToDelete = element->data;
+                    outputPerson(personToDelete);
+
                     delete[] personToDelete->firstname;
                     delete[] personToDelete->name;
                     delete personToDelete;
@@ -176,7 +182,8 @@ namespace HTW {
                     // These elements just exist whithin the person struct and should be freed automatically when deleting the person.
 
                     if (nextOne != NULL) {
-                        rootElement = nextOne;
+                        rootElement = NULL;
+                        personList = nextOne;
                     } else {
                         rootElement = NULL;
                         personList = NULL; // important, if the list is empty set the base pointer to null.
@@ -195,6 +202,7 @@ namespace HTW {
                             // delete element and attach follwing element to predecessor.
                             predecessor->next = currentElement->next;
                             Person* personToDelete = currentElement->data;
+                            outputPerson(personToDelete);
                             delete[] personToDelete->firstname;
                             delete[] personToDelete->name;
                             delete personToDelete;
@@ -211,13 +219,8 @@ namespace HTW {
                                 done = true;
                             }
                         }
-
                     }
                 }
-
-
-
-
             }
 
             void outputPerson(Person* person) {

@@ -41,3 +41,5 @@ nbproject
 .classpath
 .project
 .DS_Store
+/person-generator-plugin/build/
+/person-generator-plugin/dist/

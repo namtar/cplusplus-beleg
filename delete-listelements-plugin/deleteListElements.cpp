@@ -49,7 +49,6 @@ namespace HTW {
                         if (currentItemToDelete->next != NULL) {
                             nextItemToDelete = currentItemToDelete->next;
                         }
-
                         remove(currentItemToDelete);
                         while (nextItemToDelete != NULL) {
                             currentItemToDelete = nextItemToDelete;
